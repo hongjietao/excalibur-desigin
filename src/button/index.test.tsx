@@ -20,6 +20,12 @@ test("renders primary button", () => {
   expect(container.querySelector(".ant-btn-primary")).toBeInTheDocument();
 });
 
+test("renders small button", () => {
+  const { container } = render(<Button size="small">small button</Button>);
+  // eslint-disable-next-line
+  expect(container.querySelector(".ant-btn-small")).toBeInTheDocument();
+});
+
 test("should support click", () => {
   const onClick = jest.fn();
   render(
@@ -56,7 +62,7 @@ test("should support focus", () => {
   );
   const linkElement = screen.getByText(/click me/i);
   fireEvent.click(linkElement);
-  fireEvent.blur(linkElement);
+  fireEvent.focus(linkElement);
 
   expect(onFocus).toBeCalled();
 });

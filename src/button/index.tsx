@@ -1,6 +1,6 @@
 import React, { ReactNode } from "react";
 import classnames from "classnames";
-import "./index.css";
+import "./index.scss";
 
 interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string;
