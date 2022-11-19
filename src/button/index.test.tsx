@@ -7,3 +7,9 @@ test("renders button", () => {
   const linkElement = screen.getByText(/click me/i);
   expect(linkElement).toBeInTheDocument();
 });
+
+test("renders primary button", () => {
+  render(<Button type="primary">click me</Button>);
+  const linkElement = screen.getByText(/click me/i);
+  expect(linkElement).toBeInTheDocument();
+});
