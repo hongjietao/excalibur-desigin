@@ -2,7 +2,7 @@ import React, { ReactNode } from "react";
 import classnames from "classnames";
 import "./index.scss";
 
-interface Props extends React.HTMLAttributes<HTMLButtonElement> {
+interface ButtonProps extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string;
   type?: "normal" | "primary" | "dashed" | "text" | "link";
   size?: "small" | "medium" | "large";
@@ -12,7 +12,7 @@ interface Props extends React.HTMLAttributes<HTMLButtonElement> {
   onBlur?: React.FocusEventHandler<HTMLButtonElement>;
 }
 
-const Button = (props: Props) => {
+const Button = (props: ButtonProps) => {
   const {
     children,
     type = "normal",
