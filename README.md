@@ -9,8 +9,11 @@ React + TypeScript + Storybook + 单元测试学习
 ## 项目使用
 
 使用 `yarn create react-app my-app template --typescript` 创建的项目
+
 安装依赖： `yarn`
+
 启动项目：`yarn storybook`
+
 单元测试：`yarn jest`
 
 ## 单元测试相关文档
