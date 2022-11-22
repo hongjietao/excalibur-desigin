@@ -1,0 +1,38 @@
+import React from "react";
+import { ComponentStory, ComponentMeta } from "@storybook/react";
+
+import {{componentName}} from ".";
+
+// More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
+export default {
+  title: "Example/{{componentName}}",
+  component: {{componentName}},
+} as ComponentMeta<typeof {{componentName}}>;
+
+// More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
+const Template: ComponentStory<typeof {{componentName}}> = (args) => <{{componentName}} {...args} />;
+
+export const Primary = Template.bind({});
+// More on args: https://storybook.js.org/docs/react/writing-stories/args
+Primary.args = {
+  type: "primary",
+  children: "{{componentName}}",
+};
+
+const style = {
+  margin: 8,
+};
+export const Basic = () => {
+  return (
+    <>
+      <{{componentName}} style={style} type="primary">
+        Primary {{componentName}}
+      </{{componentName}}>
+    </>
+  );
+};
+
+export const Secondary = Template.bind({});
+Secondary.args = {
+  children: "{{componentName}}",
+};

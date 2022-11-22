@@ -1,0 +1,35 @@
+import React, { ReactNode, CSSProperties } from "react";
+import classnames from "classnames";
+import "./index.scss";
+
+export interface {{componentName}}Props extends React.HTMLAttributes<HTMLDivElement> {
+  className?: string;
+  type?: "normal" | "primary" | "dashed" | "text" | "link";
+  size?: "small" | "medium" | "large";
+  children: ReactNode;
+  style?: CSSProperties;
+}
+
+const {{componentName}} = (props: {{componentName}}Props) => {
+  const {
+    children,
+    type = "normal",
+    className,
+    style,
+    size = "medium",
+    ...others
+  } = props;
+  const cls = classnames({
+    "ant-btn": true,
+    [`ant-btn-${type}`]: type,
+    [`ant-btn-${size}`]: size,
+    [className as string]: !!className,
+  });
+  return (
+    <div className={cls} style={style} {...others}>
+      {children}
+    </div>
+  );
+};
+
+export default {{componentName}};
