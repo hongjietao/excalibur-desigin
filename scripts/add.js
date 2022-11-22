@@ -62,7 +62,7 @@ const lowCase = (str) =>
       // 写文件
       await fs.writeFile(newPath, result, (err) => {
         if (err) throw err;
-        console.log(`write ${newPath} success!`);
+        console.log(chalk.green(`write ${newPath} success!`));
       });
     });
   });
