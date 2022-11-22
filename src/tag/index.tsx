@@ -1,14 +1,15 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import classnames from "classnames";
 import "./index.scss";
 import Icon from "../icon";
+import { CloseOutlined } from "@ant-design/icons";
 
 interface TagProps extends React.HTMLAttributes<HTMLButtonElement> {
   className?: string;
   closable?: boolean;
   color?: string;
   visiable?: boolean;
-  onClose?: React.MouseEventHandler<HTMLButtonElement>;
+  onClose?: (e: React.MouseEvent<HTMLElement>) => void;
 }
 
 const Tag = (props: TagProps) => {
@@ -22,7 +23,14 @@ const Tag = (props: TagProps) => {
     ...others
   } = props;
 
-  const [visiable, setVisiable] = useState<boolean>(pvisiable || true);
+  const [visiable, setVisiable] = useState<boolean>(true);
+
+  useEffect(() => {
+    if ("visiable" in props && typeof props.visiable !== "undefined") {
+      setVisiable(props.visiable);
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [props.visiable]);
 
   const customColor = color && color.match(/^#/);
   const cls = classnames({
@@ -36,9 +44,15 @@ const Tag = (props: TagProps) => {
     style.backgroundColor = color;
   }
 
-  const handleClose = () => {
-    setVisiable(false);
-    // onClose && onClose(e);
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    onClose && onClose(e);
+    if (e.defaultPrevented) {
+      return;
+    }
+    // 受控组件
+    if (!("visiable" in props)) {
+      setVisiable(false);
+    }
   };
 
   if (!visiable) {
@@ -48,7 +62,7 @@ const Tag = (props: TagProps) => {
   return (
     <span className={cls} style={style} {...others}>
       {children}
-      {closable ? <Icon onClick={handleClose} type="close" size={14} /> : null}
+      {closable ? <CloseOutlined onClick={handleClick} /> : null}
     </span>
   );
 };

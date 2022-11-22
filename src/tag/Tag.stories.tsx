@@ -39,6 +39,10 @@ export const Basic = () => (
     <Tag closable onClose={preventDefault}>
       Prevent Default
     </Tag>
+
+    <Tag closable visiable>
+      Visiable Default
+    </Tag>
   </>
 );
 
