@@ -1,8 +1,9 @@
 const path = require("path");
-const { spwan } = require("child_process");
-const handlebars = require("handlebars");
 const fs = require("fs");
 const glob = require("glob");
+const chalk = require("chalk");
+const { spawn } = require("child_process");
+const handlebars = require("handlebars");
 
 /**
  * abc-xyz => AbcXyz
@@ -33,26 +34,36 @@ const lowCase = (str) =>
   // 组件路径
   const componentPath = path.join(process.cwd(), `src/${dirName}`);
   // 新建目录
-  spwan("mkdir", ["-p", componentPath]);
+  spawn("mkdir", ["-p", componentPath]);
   // 读模板目录
   const tplFiles = glob.sync(path.join(__dirname, `template/*.hbs`));
 
   tplFiles.forEach(async (filePath) => {
-    const content = await fs.readFile(filePath, "utf8");
-    const template = handlebars.compile(content);
-    const result = template({
-      dirName,
-      componentName,
+    // 读文件
+    fs.readFile(filePath, "utf8", async (err, data) => {
+      if (err) {
+        throw err;
+      }
+
+      // 解析模板文件
+      const template = await handlebars.compile(data);
+      const result = template({
+        dirName,
+        componentName,
+      });
+
+      // 新路径
+      const newPath = filePath
+        .replace(`scripts/template`, `src/${dirName}`)
+        .replace("component", dirName)
+        .replace("Component", componentName)
+        .replace(".hbs", "");
+
+      // 写文件
+      await fs.writeFile(newPath, result, (err) => {
+        if (err) throw err;
+        console.log(`write ${newPath} success!`);
+      });
     });
-
-    const newPath = filePath
-      .replace(`script/template`, `src/${dirName}`)
-      .replace("component", dirName)
-      .replace("Component", componentName)
-      .replace(".hbs", "");
-
-    await fs.writeFile(newPath, result);
-
-    console.log(`write ${newPath} success!`);
   });
 })();
