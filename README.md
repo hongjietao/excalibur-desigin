@@ -12,7 +12,9 @@ React + TypeScript + Storybook + 单元测试学习
 
 安装依赖： `yarn`
 
-启动项目：`yarn storybook`
+启动项目：`yarn sb`
+
+创建新组件：`yarn new ${your-component-name}`
 
 单元测试：`yarn jest`
 

@@ -27,6 +27,8 @@ const lowCase = (str) =>
 (() => {
   // 变量名称
   const component = process.argv[2];
+  if (!component)
+    throw new Error(chalk.bgRed.bold("Please input component name!"));
   // 目录名称
   const dirName = lowCase(component);
   // 组件名称
