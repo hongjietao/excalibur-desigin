@@ -20,9 +20,9 @@ const {{componentName}} = (props: {{componentName}}Props) => {
     ...others
   } = props;
   const cls = classnames({
-    "ant-btn": true,
-    [`ant-btn-${type}`]: type,
-    [`ant-btn-${size}`]: size,
+    "ant-{{dirName}}": true,
+    [`ant-{{dirName}}-${type}`]: type,
+    [`ant-{{dirName}}-${size}`]: size,
     [className as string]: !!className,
   });
   return (

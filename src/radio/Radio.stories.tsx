@@ -15,24 +15,28 @@ const Template: ComponentStory<typeof Radio> = (args) => <Radio {...args} />;
 export const Primary = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
 Primary.args = {
-  type: "primary",
+  checked: true,
   children: "Radio",
 };
 
-const style = {
-  margin: 8,
-};
 export const Basic = () => {
   return (
     <>
-      <Radio style={style} type="primary">
-        Primary Radio
+      <Radio
+        onChange={(e) => {
+          console.log(e);
+        }}
+      >
+        onChange Radio
       </Radio>
     </>
   );
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  children: "Radio",
+export const UnChecked = () => {
+  return (
+    <>
+      <Radio checked={false}>UnChecked Radio</Radio>
+    </>
+  );
 };

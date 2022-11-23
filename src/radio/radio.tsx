@@ -1,34 +1,55 @@
-import React, { ReactNode, CSSProperties } from "react";
+import React, { ReactNode, useState, useRef, CSSProperties } from "react";
 import classnames from "classnames";
 import "./index.scss";
 
-export interface RadioProps extends React.HTMLAttributes<HTMLDivElement> {
+export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
+  checked?: boolean;
+  defaultChecked?: boolean;
+  disabled?: boolean;
+  onChange?: (event: React.FormEvent<HTMLInputElement>) => void;
   className?: string;
-  type?: "normal" | "primary" | "dashed" | "text" | "link";
-  size?: "small" | "medium" | "large";
-  children: ReactNode;
+  children?: ReactNode;
   style?: CSSProperties;
 }
 
 const Radio = (props: RadioProps) => {
   const {
     children,
-    type = "normal",
     className,
     style,
-    size = "medium",
+    defaultChecked,
+    // checked,
+    onChange,
     ...others
   } = props;
+
+  const [checked, setChecked] = useState(false);
+  const inputEl = useRef(null);
   const cls = classnames({
-    "ant-btn": true,
-    [`ant-btn-${type}`]: type,
-    [`ant-btn-${size}`]: size,
-    [className as string]: !!className,
+    "ant-radio": true,
+    [`ant-radio-checked`]: checked,
   });
+
+  const wrapperCls = classnames({
+    "ant-radio-wrapper": true,
+  });
+
+  const handleClick = (e) => {
+    setChecked(true);
+    if (typeof onChange === "function") {
+      e.target = inputEl.current;
+      onChange(e);
+    }
+  };
+
   return (
-    <input className={cls} style={style} {...others} type="radio">
-      {children}
-    </input>
+    <span className={wrapperCls} onClick={handleClick}>
+      <span className={cls}>
+        <input type="radio" className="ant-radio-input" ref={inputEl} />
+        <span className="ant-radio-inner"></span>
+      </span>
+      <span>{children}</span>
+    </span>
   );
 };
 

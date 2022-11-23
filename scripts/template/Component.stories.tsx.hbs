@@ -12,27 +12,20 @@ export default {
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
 const Template: ComponentStory<typeof {{componentName}}> = (args) => <{{componentName}} {...args} />;
 
-export const Primary = Template.bind({});
+export const Default = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
-  type: "primary",
+Default.args = {
   children: "{{componentName}}",
 };
-
-const style = {
-  margin: 8,
-};
+ 
 export const Basic = () => {
   return (
     <>
-      <{{componentName}} style={style} type="primary">
+      <{{componentName}}   type="primary">
         Primary {{componentName}}
       </{{componentName}}>
     </>
   );
 };
 
-export const Secondary = Template.bind({});
-Secondary.args = {
-  children: "{{componentName}}",
-};
+ 
