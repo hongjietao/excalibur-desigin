@@ -1,4 +1,10 @@
-import React, { ReactNode, useState, useRef, CSSProperties } from "react";
+import React, {
+  ReactNode,
+  useEffect,
+  useState,
+  useRef,
+  CSSProperties,
+} from "react";
 import classnames from "classnames";
 import "./index.scss";
 
@@ -20,11 +26,20 @@ const Radio = (props: RadioProps) => {
     defaultChecked,
     // checked,
     onChange,
+    disabled,
     ...others
   } = props;
 
   const [checked, setChecked] = useState(false);
   const inputEl = useRef(null);
+
+  useEffect(() => {
+    if ("checked" in props && props.checked !== checked) {
+      setChecked(props.checked!);
+    }
+    // eslint-disable-next-line
+  }, [props.checked]);
+
   const cls = classnames({
     "ant-radio": true,
     [`ant-radio-checked`]: checked,
@@ -35,7 +50,12 @@ const Radio = (props: RadioProps) => {
   });
 
   const handleClick = (e) => {
-    setChecked(true);
+    if (disabled || checked) {
+    }
+    if (!("checked" in props)) {
+      setChecked(true);
+    }
+
     if (typeof onChange === "function") {
       e.target = inputEl.current;
       onChange(e);

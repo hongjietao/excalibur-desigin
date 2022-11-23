@@ -40,3 +40,13 @@ export const UnChecked = () => {
     </>
   );
 };
+
+export const Disabled = () => {
+  return (
+    <>
+      <Radio checked={true} disabled>
+        disabled Radio
+      </Radio>
+    </>
+  );
+};
