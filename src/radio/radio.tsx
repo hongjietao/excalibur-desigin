@@ -24,7 +24,6 @@ const Radio = (props: RadioProps) => {
     className,
     style,
     defaultChecked,
-    // checked,
     onChange,
     disabled,
     ...others
@@ -42,15 +41,18 @@ const Radio = (props: RadioProps) => {
 
   const cls = classnames({
     "ant-radio": true,
+    "ant-radio-disabled": disabled,
     [`ant-radio-checked`]: checked,
   });
 
   const wrapperCls = classnames({
     "ant-radio-wrapper": true,
+    "ant-radio-wrapper-disabled": disabled,
   });
 
   const handleClick = (e) => {
     if (disabled || checked) {
+      return;
     }
     if (!("checked" in props)) {
       setChecked(true);

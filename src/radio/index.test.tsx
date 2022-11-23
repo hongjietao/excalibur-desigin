@@ -9,31 +9,44 @@ describe("Radio", () => {
     expect(linkElement).toBeInTheDocument();
   });
 
-/**
-  test("renders normal Radio", () => {
-    const { container } = render(<Radio type="normal">normal Radio</Radio>);
-    // eslint-disable-next-line
-    expect(container.querySelector(".ant-btn-normal")).toBeInTheDocument();
-  });
+  // test("renders normal Radio", () => {
+  //   const { container } = render(<Radio type="normal">normal Radio</Radio>);
+  //   // eslint-disable-next-line
+  //   expect(container.querySelector(".ant-btn-normal")).toBeInTheDocument();
+  // });
 
-  test("renders small Radio", () => {
-    const { container } = render(<Radio size="small">small Radio</Radio>);
-    // eslint-disable-next-line
-    expect(container.querySelector(".ant-btn-small")).toBeInTheDocument();
-  });
-
-  test("should support click", () => {
-    const onClick = jest.fn();
+  test("should support disabled", () => {
+    const onChange = jest.fn();
     render(
-      <Radio type="primary" onClick={onClick}>
+      <Radio disabled onChange={onChange}>
         support click
       </Radio>
     );
     const linkElement = screen.getByText(/support click/i);
     fireEvent.click(linkElement);
 
-    expect(onClick).toBeCalled();
+    expect(onChange).toBeCalledTimes(0);
   });
 
-  **/
+  test("should support under control", () => {
+    const onChange = jest.fn();
+    render(
+      <Radio checked onChange={onChange}>
+        support click
+      </Radio>
+    );
+    const linkElement = screen.getByText(/support click/i);
+    fireEvent.click(linkElement);
+
+    expect(onChange).toBeCalledTimes(0);
+  });
+
+  test("should support onChange", () => {
+    const onChange = jest.fn();
+    render(<Radio onChange={onChange}>support click</Radio>);
+    const linkElement = screen.getByText(/support click/i);
+    fireEvent.click(linkElement);
+
+    expect(onChange).toBeCalled();
+  });
 });
