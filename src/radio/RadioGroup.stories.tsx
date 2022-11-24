@@ -15,9 +15,9 @@ const Template: ComponentStory<typeof RadioGroup> = (args) => (
   <RadioGroup {...args} />
 );
 
-export const Primary = Template.bind({});
+export const Group = Template.bind({});
 // More on args: https://storybook.js.org/docs/react/writing-stories/args
-Primary.args = {
+Group.args = {
   children: [
     <Radio value="1" key="1">
       选项1
@@ -34,7 +34,7 @@ Primary.args = {
   ],
 };
 
-export const UnderControlGroup = () => {
+export const GroupUnderControl = () => {
   return (
     <>
       <RadioGroup value="3">
