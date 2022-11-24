@@ -10,22 +10,32 @@ export default {
 } as ComponentMeta<typeof Checkbox>;
 
 // More on component templates: https://storybook.js.org/docs/react/writing-stories/introduction#using-args
-const Template: ComponentStory<typeof Checkbox> = (args) => <Checkbox {...args} />;
+const Template: ComponentStory<typeof Checkbox> = (args) => (
+  <Checkbox {...args} />
+);
 
-export const Default = Template.bind({});
-// More on args: https://storybook.js.org/docs/react/writing-stories/args
-Default.args = {
+export const Basic = Template.bind({});
+Basic.args = {
   children: "Checkbox",
 };
- 
-export const Basic = () => {
+
+export const Checked = Template.bind({});
+
+Checked.args = {
+  checked: true,
+  children: "checked Checkbox",
+};
+
+export const Disabled = () => {
   return (
     <>
-      <Checkbox   type="primary">
-        Primary Checkbox
+      <Checkbox defaultChecked={false} disabled>
+        disabled
+      </Checkbox>
+      <br />
+      <Checkbox defaultChecked disabled>
+        disabled
       </Checkbox>
     </>
   );
 };
-
- 
