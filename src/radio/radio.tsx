@@ -9,6 +9,7 @@ import classnames from "classnames";
 import "./index.scss";
 
 export interface RadioProps extends React.HTMLAttributes<HTMLInputElement> {
+  value?: string;
   checked?: boolean;
   defaultChecked?: boolean;
   disabled?: boolean;
@@ -26,6 +27,7 @@ const Radio = (props: RadioProps) => {
     defaultChecked,
     onChange,
     disabled,
+    value,
     ...others
   } = props;
 
@@ -50,7 +52,7 @@ const Radio = (props: RadioProps) => {
     "ant-radio-wrapper-disabled": disabled,
   });
 
-  const handleClick = (e) => {
+  const handleClick = (e: any) => {
     if (disabled || checked) {
       return;
     }
@@ -67,7 +69,12 @@ const Radio = (props: RadioProps) => {
   return (
     <span className={wrapperCls} onClick={handleClick}>
       <span className={cls}>
-        <input type="radio" className="ant-radio-input" ref={inputEl} />
+        <input
+          type="radio"
+          className="ant-radio-input"
+          ref={inputEl}
+          value={value}
+        />
         <span className="ant-radio-inner"></span>
       </span>
       <span>{children}</span>
