@@ -47,7 +47,7 @@ export interface CheckboxChangeEvent {
 const Checkbox = (props: CheckboxProps) => {
   const { prefixCls = "ant-", onChange, disabled, value, ...others } = props;
 
-  const [checked, setChecked] = useState(props.defaultChecked || false);
+  const [check, setCheck] = useState(props.defaultChecked || false);
   const inputEl = useRef(null);
   const {
     onChange: conChange,
@@ -57,14 +57,14 @@ const Checkbox = (props: CheckboxProps) => {
 
   useEffect(() => {
     if ("checked" in props) {
-      setChecked(props.checked || false);
+      setCheck(props.checked || false);
     }
     // eslint-disable-next-line
   }, [props.checked]);
 
   useEffect(() => {
     if (values && "value" in props) {
-      setChecked(values.indexOf(value!) > -1);
+      setCheck(values.indexOf(value!) > -1);
     }
 
     // eslint-disable-next-line
@@ -74,18 +74,20 @@ const Checkbox = (props: CheckboxProps) => {
     if (disabled || cdisabled) {
       return;
     }
-    const state = !checked;
+    const state = !check;
     if (!("checked" in props)) {
-      setChecked(state);
+      setCheck(state);
     }
 
     if (typeof onChange === "function") {
       e.target = inputEl.current;
+      e.target.checked = state;
       onChange(e);
     }
 
     if (typeof conChange === "function") {
       e.target = inputEl.current;
+      e.target.checked = state;
       conChange(e);
     }
   };
@@ -94,7 +96,7 @@ const Checkbox = (props: CheckboxProps) => {
 
   const cls = classnames({
     [`${prefixCls}checkbox`]: true,
-    [`${prefixCls}checkbox-checked`]: checked,
+    [`${prefixCls}checkbox-checked`]: check,
     [`${prefixCls}checkbox-disabled`]: disabled,
   });
 
@@ -108,10 +110,10 @@ const Checkbox = (props: CheckboxProps) => {
         <input
           type="checkbox"
           className="ant-checkbox-input"
-          // onChange={handleChange}
+          onChange={handleChange}
           ref={inputEl}
           value={value}
-          checked={props?.checked}
+          checked={check}
         />
         <span className="ant-checkbox-inner"></span>
       </span>

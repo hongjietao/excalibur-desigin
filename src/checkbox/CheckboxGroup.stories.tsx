@@ -52,7 +52,7 @@ GroupDefalutValue.args = {
 };
 
 export const ContextDemo = () => (
-  <CheckboxGroup defaultValue={["2"]} onChange={(e) => console.log(e)}>
+  <CheckboxGroup>
     <span>
       <Checkbox value="1" key="1">
         选项1

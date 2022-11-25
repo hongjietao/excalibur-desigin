@@ -39,22 +39,18 @@ const CheckboxGroup = (props: CheckboxGroupProps) => {
   const handleChange = (e: CheckboxChangeEvent) => {
     const targetValue = e.target.value;
     const idx = value.indexOf(targetValue);
-    const checked = e.target.checked;
-    let nvalue = value;
-    console.log("targetValue:", targetValue);
-    console.log("idx:", idx);
-    console.log("checked:", checked);
-    if (~idx && !checked) {
-      console.log("value.concat([targetValue]):", value);
-      setValue(value.concat([targetValue]));
-    } else if (idx > -1 && checked) {
-      value.splice(idx, 1);
-      console.log("value.splice(idx, 1)", value);
 
-      setValue(value.concat([]));
+    let nvalue = [...value];
+
+    if (idx === -1) {
+      nvalue.push(targetValue);
+    } else {
+      nvalue.splice(idx, 1);
     }
-    console.log("nvalue: " + nvalue);
-    onChange?.(value);
+
+    setValue(nvalue);
+
+    onChange?.(nvalue);
   };
 
   return (
