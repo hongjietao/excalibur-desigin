@@ -69,17 +69,15 @@ const lowCase = (str) =>
     });
   });
 
+  const scssFile = path.join(process.cwd(), `src/${dirName}/index.scss`);
+
   const response = await fetch(
     `https://unpkg.com/antd@4.24.3/es/${dirName}/style/index.css`
   );
   const body = await response.text();
   // 写css文件
-  await fs.writeFile(
-    path.join(process.cwd(), `src/${dirName}/index.scss`),
-    body,
-    (err) => {
-      if (err) throw err;
-      console.log(chalk.green(`write css success!`));
-    }
-  );
+  await fs.writeFile(scssFile, body, (err) => {
+    if (err) throw err;
+    console.log(chalk.green(`update ${scssFile} success!`));
+  });
 })();

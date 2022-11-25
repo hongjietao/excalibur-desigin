@@ -26,9 +26,7 @@ const Input = (props: InputProps) => {
     [className as string]: !!className,
   });
   return (
-    <span className={cls} style={style} {...others}>
-      {children}
-    </span>
+    <input type="text" className={cls} placeholder="please type here..." />
   );
 };
 
