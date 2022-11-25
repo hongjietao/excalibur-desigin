@@ -2,7 +2,7 @@ import React, { ReactNode, CSSProperties } from "react";
 import classnames from "classnames";
 import "./index.scss";
 
-export interface {{componentName}}Props extends React.HTMLAttributes<HTMLDivElement> {
+export interface InputProps extends React.HTMLAttributes<HTMLDivElement> {
   className?: string;
   type?: "normal" | "primary" | "dashed" | "text" | "link";
   size?: "small" | "medium" | "large";
@@ -10,7 +10,7 @@ export interface {{componentName}}Props extends React.HTMLAttributes<HTMLDivElem
   style?: CSSProperties;
 }
 
-const {{componentName}} = (props: {{componentName}}Props) => {
+const Input = (props: InputProps) => {
   const {
     children,
     type = "normal",
@@ -20,9 +20,9 @@ const {{componentName}} = (props: {{componentName}}Props) => {
     ...others
   } = props;
   const cls = classnames({
-    "ant-{{dirName}}": true,
-    [`ant-{{dirName}}-${type}`]: type,
-    [`ant-{{dirName}}-${size}`]: size,
+    "ant-input": true,
+    [`ant-input-${type}`]: type,
+    [`ant-input-${size}`]: size,
     [className as string]: !!className,
   });
   return (
@@ -32,4 +32,4 @@ const {{componentName}} = (props: {{componentName}}Props) => {
   );
 };
 
-export default {{componentName}};
+export default Input;

@@ -4,7 +4,7 @@ const glob = require("glob");
 const chalk = require("chalk");
 const { spawn } = require("child_process");
 const handlebars = require("handlebars");
-
+const fetch = require("node-fetch");
 /**
  * abc-xyz => AbcXyz
  * @param {*} str
@@ -24,7 +24,7 @@ const lowCase = (str) =>
 /**
  * 闭包
  */
-(() => {
+(async () => {
   // 变量名称
   const component = process.argv[2];
   if (!component)
@@ -68,4 +68,18 @@ const lowCase = (str) =>
       });
     });
   });
+
+  const response = await fetch(
+    `https://unpkg.com/antd@4.24.3/es/${dirName}/style/index.css`
+  );
+  const body = await response.text();
+  // 写css文件
+  await fs.writeFile(
+    path.join(process.cwd(), `src/${dirName}/index.scss`),
+    body,
+    (err) => {
+      if (err) throw err;
+      console.log(chalk.green(`write css success!`));
+    }
+  );
 })();
