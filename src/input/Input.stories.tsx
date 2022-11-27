@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { UserOutlined } from "@ant-design/icons";
 import Input from "./Input";
+import TextArea from "./TextArea";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -59,4 +60,37 @@ export const maxLength = () => {
 
 export const Prefix = () => {
   return <Input prefix={<UserOutlined />} maxLength={123} />;
+};
+
+export const Status = () => {
+  return (
+    <>
+      <Input maxLength={123} status="error" />
+      <br />
+      <br />
+      <Input maxLength={123} status="warning" />
+    </>
+  );
+};
+
+export const BasicTextArea = () => {
+  return (
+    <>
+      <TextArea defaultValue="1\n2\n3\n" />
+    </>
+  );
+};
+
+export const AutoSizeTextArea = () => {
+  return (
+    <>
+      <TextArea autoSize defaultValue="1\n2\n3\n" />
+      <br />
+      <br />
+      <TextArea
+        autoSize={{ minRows: 5, maxRows: 10 }}
+        defaultValue="1\n2\n3\n"
+      />
+    </>
+  );
 };
