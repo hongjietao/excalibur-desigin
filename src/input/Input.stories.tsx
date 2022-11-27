@@ -1,6 +1,6 @@
-import React from "react";
+import React, { useState } from "react";
 import { ComponentStory, ComponentMeta } from "@storybook/react";
-
+import { UserOutlined } from "@ant-design/icons";
 import Input from "./Input";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
@@ -17,15 +17,46 @@ export const Default = Template.bind({});
 Default.args = {
   children: "Input",
 };
- 
+
 export const Basic = () => {
+  return <Input placeholder="basic usage" defaultValue="abce" />;
+};
+
+export const Size = () => {
   return (
     <>
-      <Input   type="primary">
-        Primary Input
-      </Input>
+      <Input size="small" />
+      <Input size="medium" />
+      <Input size="large" />
     </>
   );
 };
 
- 
+export const Control = () => {
+  const [value, setValue] = useState("");
+  return (
+    <>
+      <Input
+        size="small"
+        value={value}
+        onChange={(e: any) => setValue(e.target.value)}
+      />
+
+      <button
+        onClick={() => {
+          setValue("set by button");
+        }}
+      >
+        set value
+      </button>
+    </>
+  );
+};
+
+export const maxLength = () => {
+  return <Input placeholder="basic usage" defaultValue="abce" maxLength={20} />;
+};
+
+export const Prefix = () => {
+  return <Input prefix={<UserOutlined />} maxLength={123} />;
+};
