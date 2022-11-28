@@ -3,6 +3,7 @@ import { ComponentStory, ComponentMeta } from "@storybook/react";
 import { UserOutlined } from "@ant-design/icons";
 import Input from "./Input";
 import TextArea from "./TextArea";
+import TextAreaShadow from "./TextAreaShadow";
 
 // More on default export: https://storybook.js.org/docs/react/writing-stories/introduction#default-export
 export default {
@@ -76,21 +77,62 @@ export const Status = () => {
 export const BasicTextArea = () => {
   return (
     <>
-      <TextArea defaultValue="1\n2\n3\n" />
+      <TextArea placeholder="Basic textarea" />
+      <div style={{ margin: "24px 0" }} />
+      <TextArea placeholder="Basic textarea with showCount" showCount />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextArea
+        placeholder="Basic textarea with default value"
+        defaultValue="1\n2\n3\n"
+      />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextArea placeholder="Autosize height based on content lines" autoSize />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextArea
+        placeholder="Autosize height with minimum and maximum number of lines"
+        autoSize={{ minRows: 5, maxRows: 10 }}
+      />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextArea placeholder="Controlled autoaize" autoSize />
     </>
   );
 };
 
-export const AutoSizeTextArea = () => {
+export const AutoSizeTextAreaShadow = () => {
   return (
     <>
-      <TextArea autoSize defaultValue="1\n2\n3\n" />
-      <br />
-      <br />
-      <TextArea
-        autoSize={{ minRows: 5, maxRows: 10 }}
+      <TextAreaShadow placeholder="Basic TextAreaShadow" />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextAreaShadow
+        placeholder="Basic TextAreaShadow with showCount"
+        showCount
+      />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextAreaShadow
+        placeholder="Basic TextAreaShadow with default value"
         defaultValue="1\n2\n3\n"
       />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextAreaShadow
+        placeholder="Autosize height based on content lines"
+        autoSize
+      />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextAreaShadow
+        placeholder="Autosize height with minimum and maximum number of lines"
+        autoSize={{ minRows: 5, maxRows: 10 }}
+      />
+      <div style={{ margin: "24px 0" }} />
+
+      <TextAreaShadow placeholder="Controlled autoaize" autoSize />
     </>
   );
 };

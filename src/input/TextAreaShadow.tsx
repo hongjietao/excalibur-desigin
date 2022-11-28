@@ -27,6 +27,16 @@ export interface TextAreaProps {
   style?: CSSProperties;
 }
 
+const hiddenStyle: CSSProperties = {
+  visibility: "hidden",
+  position: "absolute",
+  zIndex: "-1000",
+  top: "-1000px",
+  overflowY: "hidden",
+  left: 0,
+  right: 0,
+};
+
 const TextArea = (props: TextAreaProps) => {
   const {
     children,
@@ -44,6 +54,7 @@ const TextArea = (props: TextAreaProps) => {
   const [value, setValue] = useState(defaultValue || pvalue || "");
   const [height, setHeight] = useState(0);
   const textareaRef = useRef(null);
+  const fakeRef = useRef(null);
 
   useEffect(() => {
     if ("value" in props) {
@@ -54,17 +65,22 @@ const TextArea = (props: TextAreaProps) => {
   useEffect(() => {
     if (typeof autoSize === "object") {
       const { minRows, maxRows } = autoSize;
-      const styles = window.getComputedStyle(textareaRef.current!);
+      const fakeNode = fakeRef.current as any as HTMLElement;
+      fakeNode.setAttribute("rows", `${minRows}`);
+      const minHeight = fakeNode.clientHeight;
 
-      const minHeight = minRows * parseFloat(styles.lineHeight);
-      const maxHeight = maxRows * parseFloat(styles.lineHeight);
+      fakeNode.setAttribute("rows", `${maxRows}`);
+      const maxHeight = fakeNode.clientHeight;
 
       (textareaRef.current as any as HTMLElement).setAttribute(
         "style",
         `min-height: ${minHeight}px; 
          max-height: ${maxHeight}px;`
       );
+
+      fakeNode.setAttribute("rows", "1");
     }
+    // eslint-disable-next-line
   }, []);
 
   const wrapperCls = classnames({
@@ -82,25 +98,14 @@ const TextArea = (props: TextAreaProps) => {
       const value = e.target.value;
       setValue(value);
 
-      autoSize && setHeight(getComputedHeight(value));
+      if (autoSize) {
+        const fakeNode = fakeRef.current as any as HTMLTextAreaElement;
+        fakeNode.value = value;
+        const height = fakeNode.clientHeight;
+        setHeight(height);
+      }
     }
     onChange?.(e);
-  };
-
-  const getComputedHeight = (value: string) => {
-    const line = value.split("\n").length < 2 ? 2 : value.split("\n").length;
-
-    const styles = window.getComputedStyle(textareaRef.current!);
-    const styleHeight =
-      parseFloat(styles.paddingTop) +
-      parseFloat(styles.paddingBottom) +
-      parseFloat(styles.borderTopWidth) +
-      parseFloat(styles.borderBottomWidth);
-
-    const contentHeight = line * parseFloat(styles.lineHeight);
-    const totalHeight = styleHeight + contentHeight;
-
-    return totalHeight;
   };
 
   const style: CSSProperties = { ...props.style };
@@ -120,23 +125,25 @@ const TextArea = (props: TextAreaProps) => {
     />
   );
 
-  if (props.maxLength || prefix) {
+  if (props.showCount) {
     return (
-      <span className={wrapperCls}>
-        {prefix ? <span className="ant-input-prefix">{prefix}</span> : null}
+      <span
+        className={wrapperCls}
+        data-count={`${value.length} / ${props.maxLength}`}
+      >
         {textarea}
-        {props.maxLength ? (
-          <span className="ant-input-suffix">
-            <span className="ant-input-show-count-suffix">
-              {value.length} / {props.maxLength}
-            </span>
-          </span>
-        ) : null}
       </span>
     );
   }
 
-  return textarea;
+  return (
+    <>
+      {textarea}
+      {autoSize ? (
+        <textarea ref={fakeRef} data-fade style={hiddenStyle} className={cls} />
+      ) : null}
+    </>
+  );
 };
 
 export default TextArea;

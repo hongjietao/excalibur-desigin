@@ -65,6 +65,7 @@ const TextArea = (props: TextAreaProps) => {
          max-height: ${maxHeight}px;`
       );
     }
+    // eslint-disable-next-line
   }, []);
 
   const wrapperCls = classnames({
@@ -120,18 +121,13 @@ const TextArea = (props: TextAreaProps) => {
     />
   );
 
-  if (props.maxLength || prefix) {
+  if (props.showCount) {
     return (
-      <span className={wrapperCls}>
-        {prefix ? <span className="ant-input-prefix">{prefix}</span> : null}
+      <span
+        className={wrapperCls}
+        data-count={`${value.length} / ${props.maxLength}`}
+      >
         {textarea}
-        {props.maxLength ? (
-          <span className="ant-input-suffix">
-            <span className="ant-input-show-count-suffix">
-              {value.length} / {props.maxLength}
-            </span>
-          </span>
-        ) : null}
       </span>
     );
   }
