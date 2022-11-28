@@ -79,7 +79,11 @@ export const BasicTextArea = () => {
     <>
       <TextArea placeholder="Basic textarea" />
       <div style={{ margin: "24px 0" }} />
-      <TextArea placeholder="Basic textarea with showCount" showCount />
+      <TextArea
+        placeholder="Basic textarea with showCount"
+        showCount
+        maxLength={100}
+      />
       <div style={{ margin: "24px 0" }} />
 
       <TextArea
@@ -111,6 +115,7 @@ export const AutoSizeTextAreaShadow = () => {
       <TextAreaShadow
         placeholder="Basic TextAreaShadow with showCount"
         showCount
+        maxLength={100}
       />
       <div style={{ margin: "24px 0" }} />
 

@@ -31,7 +31,7 @@ const TextArea = (props: TextAreaProps) => {
   const {
     children,
     className,
-    showCount,
+    showCount = false,
     autoSize = false,
     onChange,
     defaultValue,
@@ -69,7 +69,8 @@ const TextArea = (props: TextAreaProps) => {
   }, []);
 
   const wrapperCls = classnames({
-    "ant-input-affix-wrapper": true,
+    "ant-input-textarea": true,
+    "ant-input-textarea-show-count": showCount,
   });
 
   const cls = classnames({
@@ -125,7 +126,7 @@ const TextArea = (props: TextAreaProps) => {
     return (
       <span
         className={wrapperCls}
-        data-count={`${value.length} / ${props.maxLength}`}
+        data-count={`${value.length} / ${props.maxLength || value.length}`}
       >
         {textarea}
       </span>
